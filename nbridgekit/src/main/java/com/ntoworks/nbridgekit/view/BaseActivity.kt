@@ -13,6 +13,8 @@ import com.ntoworks.nbridgekit.R
 import nbridgekit.plugin.PluginManager
 import nbridgekit.plugin.PreferencePlugin
 import com.ntoworks.nbridgekit.util.PreferenceUtil
+import com.ntoworks.nbridgekit.view.common.BackPressedHandler
+import com.ntoworks.nbridgekit.view.common.DefaultBackPressedHandler
 import nbridgekit.view.common.BridgeReadyListener
 import kotlin.system.exitProcess
 
@@ -24,6 +26,7 @@ open class BaseActivity : AppCompatActivity() {
 
     var pluginManager: PluginManager = PluginManager()
     lateinit var webWindow: BridgeWebWindow
+    var defaultBackPressedHandler: BackPressedHandler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,7 @@ open class BaseActivity : AppCompatActivity() {
         initRefreshLayout()
 
         PreferenceUtil.getInstance().init(this)
+        defaultBackPressedHandler = DefaultBackPressedHandler(this)
     }
 
     fun initRefreshLayout() {
@@ -80,6 +84,7 @@ open class BaseActivity : AppCompatActivity() {
         return R.id.splash
     }
 
+
     fun showSplash() {
         val splashView = findViewById<View>(getSplashLayoutResourceId())
         splashView.visibility = View.VISIBLE
@@ -88,6 +93,15 @@ open class BaseActivity : AppCompatActivity() {
     fun hideSplash() {
         val splashView = findViewById<View>(getSplashLayoutResourceId())
         splashView.visibility = View.GONE
+    }
+
+    override fun onBackPressed() {
+        defaultBackPressedHandler?.apply {
+            if (onBackPressed()) {
+                return
+            }
+        }
+        super.onBackPressed()
     }
 
     /**

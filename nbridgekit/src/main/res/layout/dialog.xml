@@ -56,7 +56,7 @@
                 android:gravity="center"
                 android:background="@drawable/outline"
                 android:textSize="14sp"
-                android:text="@string/cancel_button_default"
+                android:text="@string/cancel"
                 android:textColor="@color/gray" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -67,7 +67,7 @@
                 android:duplicateParentState="false"
                 android:gravity="center"
                 android:textSize="14sp"
-                android:text="@string/confirm_button_default"/>
+                android:text="@string/confirm"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

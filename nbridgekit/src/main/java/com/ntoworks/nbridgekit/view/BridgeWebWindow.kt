@@ -129,6 +129,9 @@ class BridgeWebWindow(
                 context.sendBroadcast(Intent(BaseActivity.REFRESH_LAYER_BROADCAST))
             }
             hideLoading()
+            if ((context as BaseActivity) != null) {
+                (context as BaseActivity).hideSplash()
+            }
         }
 
         override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
