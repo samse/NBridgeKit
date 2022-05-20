@@ -1,0 +1,15 @@
+//buildscript {
+//    repositories {
+//        jcenter() // Warning: this repository is going to shut down soon
+//    }
+//}
+
+plugins {
+    id 'com.android.application' version '7.2.0' apply false
+    id 'com.android.library' version '7.2.0' apply false
+    id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
