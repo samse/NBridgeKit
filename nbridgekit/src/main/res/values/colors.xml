@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dot_on">#EC6B29</color>
+    <color name="dot_off">#B6B6B6</color>
+
+
+
+
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+    <color name="red">#ff0000</color>
+    <color name="blue">#0000ff</color>
+    <color name="yellow">#ffff00</color>
+    <color name="green">#00ff00</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#808080</color>
+    <color name="lightGray">#EEEFF3</color>
+    <color name="gray_custom">#1A808080</color>
+
+
+    <color name="main_bg">#0072d6</color>
+    <color name="main_main">#00d1e0</color>
+    <color name="main_point">#f5495b</color>
+
+    <color name="quickbar_item_background">#D9F8FA</color>
+
+    <color name="stt_circle">#3170e2</color>
+
+    <color name="font_point_1">#005ebd</color>
+    <color name="font_point_2">#009bb2</color>
+    <color name="font_point_3">#f5495b</color>
+    <color name="font_main">#111111</color>
+    <color name="font_sub_1">#666666</color>
+    <color name="font_sub_2">#8c8d8f</color>
+    <color name="font_dim">#c8cacc</color>
+    <color name="font_explain">#699e00</color>
+
+    <color name="bg_bg_1">#edf0f2</color>
+    <color name="bg_bg_2">#f2f5f7</color>
+
+    <color name="line_1">#c8cacc</color>
+    <color name="line_2">#d7d9db</color>
+    <color name="line_3">#e1e3e5</color>
+
+
+    <!--    <color name="signature_color">#3D8ADC</color> &lt;!&ndash; 지정 필요 &ndash;&gt;-->
+    <!-- TODO 지정 필요 -->
+    <color name="transparent">#00ff0000</color>  <!-- 언제나 투명 -->
+    <color name="transparent_half">#80000000</color>
+    <color name="transparent_custom_10">#1A000000</color>
+    <color name="transparent_custom_40">#99000000</color>
+
+    <color name="transparent_custom">#1A000000</color>
+    <!--
+    투명도
+    100% — FF
+    90% — E6
+    80% — CC
+    70% — B3
+    60% — 99
+    50% — 80
+    40% — 66
+    30% — 4D
+    20% — 33
+    10% — 1A
+    0% — 00
+    -->
+</resources>

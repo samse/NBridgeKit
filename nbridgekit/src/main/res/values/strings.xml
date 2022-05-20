@@ -1,0 +1,48 @@
+<resources>
+
+    <string name="app_name">nBridge App</string>
+    <!-- TEST -->
+    <string name="test_string">test</string>
+
+    <!-- BaseActivity -->
+    <string name="base_activity_exit">한번 더 누르면 종료됩니다.</string>
+
+    <!-- MainActivity -->
+    <string name="mainactivity_webview">메인 화면</string>
+
+    <!-- BridgeWebWindow -->
+    <!--    <string name="bridge_webwinodw_choose_files">업로드 파일 선택</string>-->
+    <string name="bridge_webwinodw_choose_files">이미지 선택</string>
+
+    <!-- mainWeibview-->
+    <string name="main_webview_file_download_complete">다운로드가 완료되었습니다.</string>
+    <string name="main_webview_file_download_error">다운로드를 실패하였습니다.</string>
+
+    <!-- PopupWebview -->
+    <string name="popup_webview_close_button_explain">팝업 닫기</string>
+    <string name="popup_webview_back_button_explain">팝업 뒤로 가기</string>
+    <string name="popup_webview_forward_button_explain">팝업 앞으로 가기</string>
+    <string name="popup_webview_refresh_button_explain">팝업 새로고침</string>
+
+    <!-- dialog -->
+    <string name="confirm_button_default">확인</string>
+    <string name="dialog_button_exit">종료</string>
+    <string name="cancel_button_default">취소</string>
+    <string name="dialog_permission_essential_message">앱을 실행하기 위한 필수 권한이 거부되었습니다.\n필수 권한을 허용해주세요.</string>
+    <!-- 앞단에 해당기능의 이름, 뒷단에 권한의 이름을 명기( ex) "음성 검색 기능을 실행하기 위한 권한이 거부되었습니다.\n마이크 권한을 허용해주세요." ) -->
+    <string name="dialog_permission_first_line_message"> 기능을 실행하기 위한 권한이 거부되었습니다.</string>
+    <string name="dialog_permission_second_line_message">\n 권한을 허용해주세요.</string>
+    <string name="progress_dialog">로딩중</string>
+    <string name="dialog_exit_app">앱을 종료하시겠습니까?</string>
+    <string name="dialog_app_update">앱 업데이트가 있습니다.\n다운로드하시겠습니까?</string>
+
+    <!-- push -->
+    <string name="push_popup_title">푸쉬 알림</string>
+
+    <!-- selecttargert-->
+    <string name="select_dev_server">개발서버</string>
+    <string name="select_stg_server">스테이징서버</string>
+    <string name="select_prod_server">운영서버</string>
+    <string name="select_reset">데이터초기화</string>
+
+</resources>

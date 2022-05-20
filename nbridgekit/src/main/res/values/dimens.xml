@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="popup_webview_height">50dp</dimen>
+    <dimen name="popup_webview_closebtn_height">30dp</dimen>
+    <dimen name="popup_webview_closebtn_width">30dp</dimen>
+</resources>
