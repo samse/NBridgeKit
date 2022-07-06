@@ -63,7 +63,7 @@ open class BaseActivity : AppCompatActivity() {
         initPlugins()
     }
 
-    protected fun initPlugins() {
+    open fun initPlugins() {
         pluginManager.addPlugin("preference",
             PreferencePlugin(webWindow.bridgeScriptInterface, "preference")
         )
@@ -73,11 +73,11 @@ open class BaseActivity : AppCompatActivity() {
         return findViewById(getMainWebViewId())
     }
 
-    protected fun getMainLayoutResourceId(): Int {
+    open fun getMainLayoutResourceId(): Int {
         return R.layout.bridge_main
     }
 
-    protected fun getMainWebViewId(): Int {
+    open fun getMainWebViewId(): Int {
         return R.id.main_webView
     }
 
@@ -85,11 +85,11 @@ open class BaseActivity : AppCompatActivity() {
         return findViewById(getRootViewId()) as ViewGroup
     }
 
-    protected fun getRootViewId(): Int {
+    open fun getRootViewId(): Int {
         return R.id.root_view
     }
 
-    protected fun getSplashLayoutResourceId(): Int {
+    open fun getSplashLayoutResourceId(): Int {
         return R.id.splash
     }
 
@@ -120,7 +120,7 @@ open class BaseActivity : AppCompatActivity() {
     /**
      * 앱 종료
      */
-    fun exitApp() {
+    open fun exitApp() {
         this.setResult(RESULT_CANCELED)
         this.finishAffinity()
         exitProcess(0)
