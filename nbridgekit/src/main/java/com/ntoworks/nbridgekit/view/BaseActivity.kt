@@ -63,7 +63,7 @@ open class BaseActivity : AppCompatActivity() {
         initPlugins()
     }
 
-    private fun initPlugins() {
+    protected fun initPlugins() {
         pluginManager.addPlugin("preference",
             PreferencePlugin(webWindow.bridgeScriptInterface, "preference")
         )
@@ -73,11 +73,11 @@ open class BaseActivity : AppCompatActivity() {
         return findViewById(getMainWebViewId())
     }
 
-    fun getMainLayoutResourceId(): Int {
+    protected fun getMainLayoutResourceId(): Int {
         return R.layout.bridge_main
     }
 
-    fun getMainWebViewId(): Int {
+    protected fun getMainWebViewId(): Int {
         return R.id.main_webView
     }
 
@@ -85,23 +85,23 @@ open class BaseActivity : AppCompatActivity() {
         return findViewById(getRootViewId()) as ViewGroup
     }
 
-    private fun getRootViewId(): Int {
+    protected fun getRootViewId(): Int {
         return R.id.root_view
     }
 
-    fun getSplashLayoutResourceId(): Int {
+    protected fun getSplashLayoutResourceId(): Int {
         return R.id.splash
     }
 
 
-    fun showSplash() {
+    open fun showSplash() {
         val splashView = findViewById<View>(getSplashLayoutResourceId())
         splashView?.apply {
             visibility = View.VISIBLE
         }
     }
 
-    fun hideSplash() {
+    open fun hideSplash() {
         val splashView = findViewById<View>(getSplashLayoutResourceId())
         splashView?.apply {
             visibility = View.GONE
