@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -78,6 +79,14 @@ open class BaseActivity : AppCompatActivity() {
 
     fun getMainWebViewId(): Int {
         return R.id.main_webView
+    }
+
+    fun getRootView(): ViewGroup? {
+        return findViewById(getRootViewId()) as ViewGroup
+    }
+
+    private fun getRootViewId(): Int {
+        return R.id.root_view
     }
 
     fun getSplashLayoutResourceId(): Int {
