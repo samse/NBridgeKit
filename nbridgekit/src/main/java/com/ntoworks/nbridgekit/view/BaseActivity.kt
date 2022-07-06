@@ -87,12 +87,16 @@ open class BaseActivity : AppCompatActivity() {
 
     fun showSplash() {
         val splashView = findViewById<View>(getSplashLayoutResourceId())
-        splashView.visibility = View.VISIBLE
+        splashView?.apply {
+            visibility = View.VISIBLE
+        }
     }
 
     fun hideSplash() {
         val splashView = findViewById<View>(getSplashLayoutResourceId())
-        splashView.visibility = View.GONE
+        splashView?.apply {
+            visibility = View.GONE
+        }
     }
 
     override fun onBackPressed() {
