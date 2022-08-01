@@ -2,6 +2,7 @@ package com.ntoworks.nbridgekit.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.ntoworks.nbridgekit.util.crypt.SecureSharedPreferences
 
 class PreferenceUtil {
     companion object {
@@ -14,16 +15,21 @@ class PreferenceUtil {
                 }
             }
 
-        private lateinit var prefs : SharedPreferences
-        private lateinit var editor : SharedPreferences.Editor
     }
 
+    private lateinit var securePrefs: SecureSharedPreferences
+
     private lateinit var secretKey: String
+    private lateinit var prefs : SharedPreferences
+    private lateinit var editor : SharedPreferences.Editor
+
     fun init(context: Context, secretKey: String = "9876543210abcedf") {
         try {
             prefs = context.getSharedPreferences("BridgeCorePreference", Context.MODE_PRIVATE)
             this.secretKey = secretKey
             editor = prefs.edit()
+
+            securePrefs = SecureSharedPreferences(prefs)
         } catch (e : Exception){
         }
     }
@@ -43,22 +49,16 @@ class PreferenceUtil {
         editor.commit()
     }
 
-    fun putCryptedString(key: String?, value: String?) {
-        val cryptValue = AesUtil.getInstance().encrypt(value!!, secretKey)
-        editor.putString(key, cryptValue)
-        editor.commit()
+    fun putCryptedString(key: String, value: String) {
+        securePrefs.put(key= key, value= value)
     }
 
     fun getString(key: String, defValue: String): String {
         return prefs.getString(key, defValue) ?: defValue
     }
 
-    fun getCryptedString(key: String?, defValue: String?): String? {
-        val value = prefs.getString(key, null)
-        if (value != null) {
-            return AesUtil.getInstance().decrypt(value, secretKey)
-        }
-        return defValue
+    fun getCryptedString(key: String, defValue: String): String? {
+        return securePrefs.get(key = key, defaultValue = defValue)
     }
 
     fun putBoolean(key: String?, value : Boolean) {

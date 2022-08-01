@@ -3,6 +3,7 @@ package nbridgekit.view
 import android.app.Activity
 import android.content.*
 import android.graphics.Bitmap
+import android.os.Build
 import android.webkit.*
 import android.webkit.WebSettings.LayoutAlgorithm
 import com.ntoworks.nbridgekit.BuildConfig
@@ -94,10 +95,16 @@ class BridgeWebWindow(
         webView.run {
             settings.run {
                 javaScriptEnabled = true
+                cacheMode = WebSettings.LOAD_NO_CACHE
                 domStorageEnabled = true
+                allowFileAccess = true
+                allowContentAccess = true
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    allowFileAccessFromFileURLs = true
+                    allowUniversalAccessFromFileURLs = true
+                }
                 databaseEnabled = true
                 useWideViewPort = false
-                allowFileAccess = true
                 layoutAlgorithm = LayoutAlgorithm.NORMAL
                 javaScriptCanOpenWindowsAutomatically = true
                 loadsImagesAutomatically = true
