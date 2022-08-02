@@ -3,6 +3,7 @@ package nbridgekit.plugin
 import android.util.Log
 import nbridgekit.plugin.base.PluginBase
 import com.ntoworks.nbridgekit.util.PreferenceUtil
+import com.ntoworks.nbridgekit.util.crypt.AndroidRsaCipherHelper
 import nbridgekit.view.common.BridgeScriptInterface
 import org.json.JSONException
 import org.json.JSONObject
@@ -13,6 +14,10 @@ class PreferencePlugin(scriptInterface: BridgeScriptInterface, service: String) 
         const val ACTION_GET = "get"
         const val ACTION_SET = "set"
         const val ACTION_REMOVE = "remove"
+    }
+
+    init {
+        AndroidRsaCipherHelper.init(applicationContext = context)
     }
 
     override fun execute(promiseId: String, command: JSONObject) {
