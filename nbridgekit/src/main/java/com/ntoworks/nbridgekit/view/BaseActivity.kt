@@ -42,14 +42,16 @@ open class BaseActivity : AppCompatActivity() {
 
     fun initRefreshLayout() {
         val refreshLayout = findViewById<SwipeRefreshLayout>(R.id.main_refresh_layout)
-        refreshLayout.setOnRefreshListener {
-            webWindow.refresh()
-        }
-        registerReceiver(object : BroadcastReceiver() {
-            override fun onReceive(p0: Context?, p1: Intent?) {
-                refreshLayout.isRefreshing = false
+        if (refreshLayout!=null) {
+            refreshLayout.setOnRefreshListener {
+                webWindow.refresh()
             }
-        }, IntentFilter(REFRESH_LAYER_BROADCAST))
+            registerReceiver(object : BroadcastReceiver() {
+                override fun onReceive(p0: Context?, p1: Intent?) {
+                    refreshLayout.isRefreshing = false
+                }
+            }, IntentFilter(REFRESH_LAYER_BROADCAST))
+        }
     }
 
     private fun initWebView() {
