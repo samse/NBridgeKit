@@ -15,7 +15,7 @@ class BridgeWebWindow(
     val context: Context,
     val webView: WebView,
     val pluginManager: PluginManager,
-    val bridgeWebReadyListener: BridgeReadyListener
+    var bridgeWebReadyListener: BridgeReadyListener
 ) {
 
     lateinit var bridgeScriptInterface: BridgeScriptInterface
