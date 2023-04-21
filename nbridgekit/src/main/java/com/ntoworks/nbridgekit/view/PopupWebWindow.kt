@@ -41,9 +41,8 @@ class PopupWebWindow(
     /**
      * 화면 초기화
      */
-    private fun initView() {
+    fun initView() {
         val webView = findViewById<WebView>(R.id.popup_webview)
-
         webView?.let {
             initPopupWebView(it)
         }
@@ -97,7 +96,7 @@ class PopupWebWindow(
     /**
      * 팝업 웹뷰 초기화
      */
-    private fun initPopupWebView(popupWebView: WebView) {
+    fun initPopupWebView(popupWebView: WebView) {
         // 팝업 웹뷰 설정
         popupWebView.apply {
             popupWebView.settings.apply {
@@ -108,7 +107,6 @@ class PopupWebWindow(
                 layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL
                 // 다운로드 활성화 시 추가 작업 필요
 //                setDownloadListener(downloadListener)
-
 //                textZoom = 100
             }
 
@@ -122,7 +120,7 @@ class PopupWebWindow(
     /**
      * 커스텀 웹뷰 클라이언트(웹뷰 시작, 종료, 특정 url 로드 중 등에서 이벤트 구현)
      */
-    private val customWebViewClient : WebViewClient by lazy {
+    val customWebViewClient : WebViewClient by lazy {
         object : WebViewClient() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)

@@ -54,7 +54,7 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    private fun initWebView() {
+    fun initWebView() {
         webWindow = BridgeWebWindow(this,
             getWebView(),
             pluginManager,
