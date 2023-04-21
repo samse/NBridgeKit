@@ -41,14 +41,16 @@ class PopupWebWindow(
     /**
      * 화면 초기화
      */
-    fun initView() {
+    open fun initView() {
         val webView = findViewById<WebView>(R.id.popup_webview)
         webView?.let {
             initPopupWebView(it)
         }
 
         // 네비게이션 visibility 초기화
-        if(!navigationVisibility) { findViewById<ConstraintLayout>(R.id.popup_webview_top_navigation)?.visibility = View.GONE }
+        if(!navigationVisibility) {
+            findViewById<ConstraintLayout>(R.id.popup_webview_top_navigation)?.visibility = View.GONE
+        }
 
         // 타이틀이 있을 경우 타이틀 보임
         if(title.isNotEmpty()) {
@@ -96,7 +98,7 @@ class PopupWebWindow(
     /**
      * 팝업 웹뷰 초기화
      */
-    fun initPopupWebView(popupWebView: WebView) {
+    open fun initPopupWebView(popupWebView: WebView) {
         // 팝업 웹뷰 설정
         popupWebView.apply {
             popupWebView.settings.apply {

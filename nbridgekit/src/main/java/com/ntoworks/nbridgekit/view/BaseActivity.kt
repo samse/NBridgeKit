@@ -54,7 +54,7 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun initWebView() {
+    open fun initWebView() {
         webWindow = BridgeWebWindow(this,
             getWebView(),
             pluginManager,
@@ -94,7 +94,6 @@ open class BaseActivity : AppCompatActivity() {
     open fun getSplashLayoutResourceId(): Int {
         return R.id.splash
     }
-
 
     open fun showSplash() {
         val splashView = findViewById<View>(getSplashLayoutResourceId())
