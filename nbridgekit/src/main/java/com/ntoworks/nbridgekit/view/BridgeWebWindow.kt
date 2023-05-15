@@ -34,7 +34,6 @@ class BridgeWebWindow(
 
     fun loadUrl(url: String) {
         this.url = url
-        showLoading()
         (context as Activity).runOnUiThread {
             webView?.loadUrl(url)
         }
@@ -134,10 +133,6 @@ class BridgeWebWindow(
             if(fullToRefreshFlag){
                 fullToRefreshFlag = false
                 context.sendBroadcast(Intent(BaseActivity.REFRESH_LAYER_BROADCAST))
-            }
-            hideLoading()
-            if ((context as BaseActivity) != null) {
-                (context as BaseActivity).hideSplash()
             }
         }
 

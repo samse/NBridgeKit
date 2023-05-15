@@ -16,9 +16,9 @@ class PreferencePlugin(scriptInterface: BridgeScriptInterface, service: String) 
         const val ACTION_REMOVE = "remove"
     }
 
-    init {
-        AndroidRsaCipherHelper.init(applicationContext = context)
-    }
+//    init {
+//        AndroidRsaCipherHelper.init(applicationContext = context)
+//    }
 
     override fun execute(promiseId: String, command: JSONObject) {
         when (command.getString(BridgeScriptInterface.ACTION)) {

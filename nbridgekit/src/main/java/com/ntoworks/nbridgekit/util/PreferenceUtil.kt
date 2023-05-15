@@ -2,6 +2,8 @@ package com.ntoworks.nbridgekit.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.annotation.NonNull
+import com.ntoworks.nbridgekit.util.crypt.AndroidRsaCipherHelper
 import com.ntoworks.nbridgekit.util.crypt.SecureSharedPreferences
 
 class PreferenceUtil {
@@ -19,17 +21,34 @@ class PreferenceUtil {
 
     private lateinit var securePrefs: SecureSharedPreferences
 
-    private lateinit var secretKey: String
+    private var secretKey: String? = null
     private lateinit var prefs : SharedPreferences
     private lateinit var editor : SharedPreferences.Editor
 
+    /**
+     * RSA 암호화 방식 적용
+     * 256자 이상의 데이터는 저장하지 못함.
+     */
+    fun init(context: Context) {
+        try {
+            AndroidRsaCipherHelper.init(context)
+            prefs = context.getSharedPreferences("BridgeCorePreference", Context.MODE_PRIVATE)
+            editor = prefs.edit()
+            securePrefs = SecureSharedPreferences(prefs)
+            secretKey = null
+        } catch (e : Exception){
+        }
+    }
+
+    /**
+     * AES256 암호화 방식 적용
+     */
     fun init(context: Context, secretKey: String = "9876543210abcedf") {
         try {
+            AndroidRsaCipherHelper.init(context)
             prefs = context.getSharedPreferences("BridgeCorePreference", Context.MODE_PRIVATE)
             this.secretKey = secretKey
             editor = prefs.edit()
-
-            securePrefs = SecureSharedPreferences(prefs)
         } catch (e : Exception){
         }
     }
@@ -44,20 +63,33 @@ class PreferenceUtil {
         editor.commit()
     }
 
-    fun putString(key: String, value: String) {
+    fun putString(key: String, @NonNull value: String) {
         editor.putString(key, value)
         editor.commit()
     }
 
-    fun putCryptedString(key: String, value: String) {
+    fun putCryptedString(key: String, @NonNull value: String) {
+        if (secretKey!=null) {
+            val cryptValue = AesUtil.getInstance().encrypt(value!!, secretKey!!)
+            editor.putString(key, cryptValue)
+            editor.commit()
+            return
+        }
         securePrefs.put(key= key, value= value)
     }
 
-    fun getString(key: String, defValue: String): String {
+    fun getString(key: String, @NonNull defValue: String): String {
         return prefs.getString(key, defValue) ?: defValue
     }
 
-    fun getCryptedString(key: String, defValue: String): String? {
+    fun getCryptedString(key: String, @NonNull defValue: String): String? {
+        if (secretKey!=null) {
+            val value = prefs.getString(key, null)
+            if (value != null) {
+                return AesUtil.getInstance().decrypt(value, secretKey!!)
+            }
+            return defValue
+        }
         return securePrefs.get(key = key, defaultValue = defValue)
     }
 
