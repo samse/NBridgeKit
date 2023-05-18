@@ -67,7 +67,7 @@ class PreferencePlugin(scriptInterface: BridgeScriptInterface, service: String) 
         } catch (e: JSONException) {
             invalidParamError(promiseId)
         } catch (e: Exception) {
-            sendErrorResult(promiseId)
+            sendErrorResult(promiseId, e.localizedMessage, false)
         }
     }
 
