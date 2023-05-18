@@ -7,6 +7,7 @@ import com.ntoworks.nbridgekit.util.crypt.AndroidRsaCipherHelper
 import nbridgekit.view.common.BridgeScriptInterface
 import org.json.JSONException
 import org.json.JSONObject
+import java.util.Base64
 
 class PreferencePlugin(scriptInterface: BridgeScriptInterface, service: String) :
     PluginBase(scriptInterface, service) {
@@ -44,14 +45,15 @@ class PreferencePlugin(scriptInterface: BridgeScriptInterface, service: String) 
             val defaultValue: String = obj.getString("defaultValue")
             val value : String? = PreferenceUtil.getInstance().getCryptedString(key, defaultValue)
             if(value != null) {
-                sendSuccessResult(promiseId, value)
+                val res = android.util.Base64.encodeToString(value.toByteArray(), android.util.Base64.DEFAULT)
+                sendSuccessResult(promiseId, res)
             } else {
                 throw Exception("value is null")
             }
         } catch (e: JSONException) {
             invalidParamError(promiseId)
         } catch (e: Exception) {
-            sendErrorResult(promiseId)
+            sendErrorResult(promiseId, e.localizedMessage, false)
         }
     }
 
