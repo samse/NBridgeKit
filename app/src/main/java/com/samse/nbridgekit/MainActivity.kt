@@ -1,6 +1,8 @@
 package com.samse.nbridgekit
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import com.ntoworks.nbridgekit.view.BridgeBaseActivity
 import nbridgekit.view.BaseActivity
 
@@ -10,5 +12,6 @@ class MainActivity : BridgeBaseActivity() {
         super.onCreate(savedInstanceState)
 //        webWindow.loadUrl("https://www.ntoworks.com/app/nbridge/v2/sample.html")
         webWindow.loadUrl("https://www.daum.net")
+        Handler(Looper.getMainLooper()).postDelayed({hideSplash()}, 300);
     }
 }

@@ -141,15 +141,15 @@ class BridgeWebWindow(
                 // 특정 url의 경우 화면이동
                 request?.url?.let {
                     when {
-                        url.toString().contains("tel:") -> {
+                        it.toString().contains("tel:") -> {
                             val movePhone = Intent(Intent.ACTION_DIAL, it)
                             context.startActivity(movePhone)
                         }
-                        url.toString().contains("smsto:") -> {
+                        it.toString().contains("smsto:") -> {
                             val movePhone = Intent(Intent.ACTION_SENDTO, it)
                             context.startActivity(movePhone)
                         }
-                        url.toString().contains("play.google.com/store/apps/") || url.toString()
+                        it.toString().contains("play.google.com/store/apps/") || url.toString()
                             .contains("market://") || url.toString().contains("intent://") -> {
                             val intent = Intent(Intent.ACTION_VIEW)
                             intent.data = it
