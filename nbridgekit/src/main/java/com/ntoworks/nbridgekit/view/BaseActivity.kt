@@ -27,7 +27,7 @@ open class BaseActivity : AppCompatActivity() {
 
     var pluginManager: PluginManager = PluginManager()
     lateinit var webWindow: BridgeWebWindow
-    var defaultBackPressedHandler: BackPressedHandler? = null
+    var backPressedHandler: BackPressedHandler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,7 @@ open class BaseActivity : AppCompatActivity() {
         initRefreshLayout()
 
         PreferenceUtil.getInstance().init(this)
-        defaultBackPressedHandler = DefaultBackPressedHandler(this)
+        backPressedHandler = DefaultBackPressedHandler(this)
     }
 
     fun initRefreshLayout() {
@@ -110,7 +110,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        defaultBackPressedHandler?.apply {
+        backPressedHandler?.apply {
             if (onBackPressed()) {
                 return
             }
