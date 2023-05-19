@@ -19,7 +19,8 @@ class BridgeWebWindow(
 ) {
 
     lateinit var bridgeScriptInterface: BridgeScriptInterface
-    var url: String? = null
+    public var url: String? = null
+    public var fullToRefreshFlag = false
     var loadingHandler: LoadingHandler = DefaultLoadingHandler(context)
     var dialogHandler: DialogHandler = DefaultDialogHandler(context)
 
@@ -116,63 +117,64 @@ class BridgeWebWindow(
             }
             addJavascriptInterface(bridgeScriptInterface, NBRIDGE_KEY)
             webChromeClient = BridgeWebChromeClient(context as Activity, dialogHandler)
-            webViewClient = BridgeWebViewClient()
+            webViewClient = BridgeWebViewClient(context, fullToRefreshFlag, url)
         }
     }
 
-    inner class BridgeWebViewClient : WebViewClient() {
 
-        override fun onPageStarted(view: WebView?, url: String, favicon: Bitmap?) {
-            Logger.debug("onPageStarted : $url")
-        }
 
-        override fun onPageFinished(view: WebView, url: String) {
-            super.onPageFinished(view, url)
-            Logger.debug("onPageFinished : $url")
-
-            if(fullToRefreshFlag){
-                fullToRefreshFlag = false
-                context.sendBroadcast(Intent(BaseActivity.REFRESH_LAYER_BROADCAST))
-            }
-        }
-
-        override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-            try {
-                // 특정 url의 경우 화면이동
-                request?.url?.let {
-                    when {
-                        it.toString().contains("tel:") -> {
-                            val movePhone = Intent(Intent.ACTION_DIAL, it)
-                            context.startActivity(movePhone)
-                        }
-                        it.toString().contains("smsto:") -> {
-                            val movePhone = Intent(Intent.ACTION_SENDTO, it)
-                            context.startActivity(movePhone)
-                        }
-                        it.toString().contains("play.google.com/store/apps/") || url.toString()
-                            .contains("market://") || url.toString().contains("intent://") -> {
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = it
-                            context.startActivity(intent)
-                        }
-                        else -> {
-                            return super.shouldOverrideUrlLoading(view, request)
-                        }
-                    }
-                }
-                return true
-
-            } catch (e: Exception) {
-                Logger.error(e.message)
-                return false
-            }
-        }
-    }
-
-    var fullToRefreshFlag = false
     fun refresh() {
         webView.reload()
         fullToRefreshFlag = true
     }
 
+}
+
+open class BridgeWebViewClient(val context: Context, var fullToRefreshFlag: Boolean, val url: String?) : WebViewClient() {
+
+    override fun onPageStarted(view: WebView?, url: String, favicon: Bitmap?) {
+        Logger.debug("onPageStarted : $url")
+    }
+
+    override fun onPageFinished(view: WebView, url: String) {
+        super.onPageFinished(view, url)
+        Logger.debug("onPageFinished : $url")
+
+        if(fullToRefreshFlag){
+            fullToRefreshFlag = false
+            context.sendBroadcast(Intent(BaseActivity.REFRESH_LAYER_BROADCAST))
+        }
+    }
+
+    override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+        try {
+            // 특정 url의 경우 화면이동
+            request?.url?.let {
+                when {
+                    it.toString().contains("tel:") -> {
+                        val movePhone = Intent(Intent.ACTION_DIAL, it)
+                        context.startActivity(movePhone)
+                    }
+                    it.toString().contains("smsto:") -> {
+                        val movePhone = Intent(Intent.ACTION_SENDTO, it)
+                        context.startActivity(movePhone)
+                    }
+                    it.toString().contains("play.google.com/store/apps/") || url.toString()
+                        .contains("market://") || url.toString().contains("intent://") -> {
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = it
+                        context.startActivity(intent)
+                    }
+                    else -> {
+                        return super.shouldOverrideUrlLoading(view, request)
+                    }
+                }
+            }
+            return true
+
+        } catch (e: Exception) {
+            Logger.error(e.message)
+            return false
+        }
+    }
 }
