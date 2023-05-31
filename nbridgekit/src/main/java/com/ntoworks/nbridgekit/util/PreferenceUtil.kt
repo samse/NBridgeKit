@@ -98,8 +98,8 @@ class PreferenceUtil {
         editor.commit()
     }
 
-    fun getBoolean(key: String): Boolean {
-        return prefs.getBoolean(key, false)
+    fun getBoolean(key: String, defValue: Boolean): Boolean {
+        return prefs.getBoolean(key, defValue)
     }
 
     fun putLong(key: String?, value: Long) {
