@@ -21,7 +21,7 @@ Step. 2
 Add the dependency
 ```
 dependencies {
-  implementation 'com.github.samse:NBridgeKit:0.1.8'
+  implementation 'com.github.samse:NBridgeKit:0.2.9'
 }
 ```
 
