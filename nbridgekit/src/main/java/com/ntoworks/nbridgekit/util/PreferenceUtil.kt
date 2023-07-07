@@ -22,6 +22,7 @@ class PreferenceUtil {
     private lateinit var securePrefs: SecureSharedPreferences
 
     private var secretKey: String? = null
+    private var secretKeyByteArray: ByteArray? = null
     private lateinit var prefs : SharedPreferences
     private lateinit var editor : SharedPreferences.Editor
 
@@ -36,6 +37,7 @@ class PreferenceUtil {
             editor = prefs.edit()
             securePrefs = SecureSharedPreferences(prefs)
             secretKey = null
+            secretKeyByteArray = null
         } catch (e : Exception){
         }
     }
@@ -48,6 +50,19 @@ class PreferenceUtil {
             AndroidRsaCipherHelper.init(context)
             prefs = context.getSharedPreferences("BridgeCorePreference", Context.MODE_PRIVATE)
             this.secretKey = secretKey
+            editor = prefs.edit()
+        } catch (e : Exception){
+        }
+    }
+
+    /**
+     * AES256 암호화 방식 적용
+     */
+    fun init(context: Context, secretKey: ByteArray = "9876543210abcedf".toByteArray()) {
+        try {
+            AndroidRsaCipherHelper.init(context)
+            prefs = context.getSharedPreferences("BridgeCorePreference", Context.MODE_PRIVATE)
+            this.secretKeyByteArray = secretKey
             editor = prefs.edit()
         } catch (e : Exception){
         }
@@ -74,6 +89,11 @@ class PreferenceUtil {
             editor.putString(key, cryptValue)
             editor.commit()
             return
+        } else if(secretKeyByteArray!=null) {
+            val cryptValue = AesUtil.getInstance().encrypt(value!!, secretKeyByteArray!!)
+            editor.putString(key, cryptValue)
+            editor.commit()
+            return
         }
         securePrefs.put(key= key, value= value)
     }
@@ -87,6 +107,12 @@ class PreferenceUtil {
             val value = prefs.getString(key, null)
             if (value != null) {
                 return AesUtil.getInstance().decrypt(value, secretKey!!)
+            }
+            return defValue
+        } else if(secretKeyByteArray!=null) {
+            val value = prefs.getString(key, null)
+            if (value != null) {
+                return AesUtil.getInstance().decrypt(value, secretKeyByteArray!!)
             }
             return defValue
         }
