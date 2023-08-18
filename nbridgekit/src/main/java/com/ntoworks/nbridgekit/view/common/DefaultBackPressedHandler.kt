@@ -5,7 +5,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import com.ntoworks.nbridgekit.R
-import nbridgekit.view.BaseActivity
+import com.ntoworks.nbridgekit.view.BaseActivity
 import kotlin.system.exitProcess
 
 class DefaultBackPressedHandler(val context: Context): BackPressedHandler {

@@ -1,4 +1,4 @@
-package nbridgekit.view
+package com.ntoworks.nbridgekit.view
 
 import android.content.ActivityNotFoundException
 import android.content.Context

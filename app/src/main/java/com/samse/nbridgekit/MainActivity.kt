@@ -12,7 +12,6 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import com.ntoworks.nbridgekit.view.BridgeBaseActivity
-import nbridgekit.view.BaseActivity
 import nbridgekit.view.BridgeWebViewClient
 import nbridgekit.view.BridgeWebWindow
 

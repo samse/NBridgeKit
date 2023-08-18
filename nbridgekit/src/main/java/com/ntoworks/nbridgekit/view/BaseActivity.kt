@@ -1,4 +1,4 @@
-package nbridgekit.view
+package com.ntoworks.nbridgekit.view
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -16,6 +16,7 @@ import nbridgekit.plugin.PreferencePlugin
 import com.ntoworks.nbridgekit.util.PreferenceUtil
 import com.ntoworks.nbridgekit.view.common.BackPressedHandler
 import com.ntoworks.nbridgekit.view.common.DefaultBackPressedHandler
+import nbridgekit.view.BridgeWebWindow
 import nbridgekit.view.common.BridgeReadyListener
 import kotlin.system.exitProcess
 

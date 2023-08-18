@@ -7,6 +7,8 @@ import android.os.Build
 import android.webkit.*
 import android.webkit.WebSettings.LayoutAlgorithm
 import com.ntoworks.nbridgekit.BuildConfig
+import com.ntoworks.nbridgekit.view.BaseActivity
+import com.ntoworks.nbridgekit.view.common.BridgeWebChromeClient
 import nbridgekit.logger.Logger
 import nbridgekit.plugin.PluginManager
 import nbridgekit.view.common.*

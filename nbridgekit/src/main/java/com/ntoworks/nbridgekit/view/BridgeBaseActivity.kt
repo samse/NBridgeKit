@@ -1,7 +1,5 @@
 package com.ntoworks.nbridgekit.view
 
-import nbridgekit.view.BaseActivity
-
 open class BridgeBaseActivity: BaseActivity() {
 
     var layoutResId: Int? = null
