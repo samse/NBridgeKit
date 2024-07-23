@@ -11,6 +11,7 @@ import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ntoworks.nbridgekit.R
+import com.ntoworks.nbridgekit.plugin.AppPlugin
 import com.ntoworks.nbridgekit.plugin.PluginManager
 import com.ntoworks.nbridgekit.plugin.PreferencePlugin
 import com.ntoworks.nbridgekit.util.PreferenceUtil
@@ -68,9 +69,15 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     open fun initPlugins() {
-        pluginManager.addPlugin("preference",
-            PreferencePlugin(webWindow.bridgeScriptInterface, "preference")
-        )
+        pluginManager?.run {
+            addPlugin("preference",
+                PreferencePlugin(webWindow.bridgeScriptInterface, "preference")
+            )
+            addPlugin("app",
+                AppPlugin(webWindow.bridgeScriptInterface, "app")
+            )
+        }
+
     }
 
     fun getWebView(): WebView {

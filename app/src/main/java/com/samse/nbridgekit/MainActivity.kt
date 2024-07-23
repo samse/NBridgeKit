@@ -24,10 +24,10 @@ class MainActivity : BridgeBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_main, R.id.nbridge_root_view, R.id.nbridge_webView, R.id.nbridge_splash)
         super.onCreate(savedInstanceState)
-//        webWindow.loadUrl("https://www.ntoworks.com/app/nbridge/v2/sample.html")
 //        webWindow.loadUrl("https://dbins23.ichc.co.kr")
         webWindow.webView.setWebChromeClient(MyWebChromeClient(this, webWindow.dialogHandler))
-        webWindow.loadUrl("https://www.ntoworks.com/app/ga/downloads.html")
+//        webWindow.loadUrl("https://www.ntoworks.com/app/ga/downloads.html")
+        webWindow.loadUrl("https://www.ntoworks.com/app/nbridge/v2/sample.html")
         Handler(Looper.getMainLooper()).postDelayed({hideSplash()}, 300);
         WebView.setWebContentsDebuggingEnabled(true)
     }
