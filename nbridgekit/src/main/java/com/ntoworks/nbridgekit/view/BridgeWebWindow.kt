@@ -1,4 +1,4 @@
-package nbridgekit.view
+package com.ntoworks.nbridgekit.view
 
 import android.app.Activity
 import android.content.*
@@ -7,11 +7,15 @@ import android.os.Build
 import android.webkit.*
 import android.webkit.WebSettings.LayoutAlgorithm
 import com.ntoworks.nbridgekit.BuildConfig
-import com.ntoworks.nbridgekit.view.BaseActivity
+import com.ntoworks.nbridgekit.view.common.BridgeReadyListener
+import com.ntoworks.nbridgekit.view.common.BridgeScriptInterface
 import com.ntoworks.nbridgekit.view.common.BridgeWebChromeClient
-import nbridgekit.logger.Logger
-import nbridgekit.plugin.PluginManager
-import nbridgekit.view.common.*
+import com.ntoworks.nbridgekit.view.common.DefaultDialogHandler
+import com.ntoworks.nbridgekit.view.common.DefaultLoadingHandler
+import com.ntoworks.nbridgekit.view.common.DialogHandler
+import com.ntoworks.nbridgekit.view.common.LoadingHandler
+import com.ntoworks.nbridgekit.logger.Logger
+import com.ntoworks.nbridgekit.plugin.PluginManager
 
 class BridgeWebWindow(
     val context: Context,
@@ -89,7 +93,7 @@ class BridgeWebWindow(
         , pluginManager)
     }
 
-    private fun initWebView(webView: WebView) {
+    private fun  initWebView(webView: WebView) {
         if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true)
         }

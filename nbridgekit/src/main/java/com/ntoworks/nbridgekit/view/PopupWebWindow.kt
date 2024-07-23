@@ -16,10 +16,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ntoworks.nbridgekit.R
-import nbridgekit.view.common.DefaultDialogHandler
-import nbridgekit.view.common.DefaultLoadingHandler
-import nbridgekit.view.common.DialogHandler
-import nbridgekit.view.common.LoadingHandler
+import com.ntoworks.nbridgekit.view.common.DefaultDialogHandler
+import com.ntoworks.nbridgekit.view.common.DefaultLoadingHandler
+import com.ntoworks.nbridgekit.view.common.DialogHandler
+import com.ntoworks.nbridgekit.view.common.LoadingHandler
 
 class PopupWebWindow(
     context: Context,

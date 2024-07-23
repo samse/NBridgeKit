@@ -1,4 +1,4 @@
-package nbridgekit.view.common
+package com.ntoworks.nbridgekit.view.common
 
 import android.webkit.JsResult
 import android.webkit.WebView

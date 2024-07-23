@@ -1,14 +1,11 @@
-package nbridgekit.plugin
+package com.ntoworks.nbridgekit.plugin
 
 import android.util.Log
-import nbridgekit.plugin.base.PluginBase
+import com.ntoworks.nbridgekit.plugin.base.PluginBase
 import com.ntoworks.nbridgekit.util.PreferenceUtil
-import com.ntoworks.nbridgekit.util.crypt.AndroidRsaCipherHelper
-import nbridgekit.view.common.BridgeScriptInterface
+import com.ntoworks.nbridgekit.view.common.BridgeScriptInterface
 import org.json.JSONException
 import org.json.JSONObject
-import java.lang.reflect.Array.setLong
-import java.util.Base64
 
 class PreferencePlugin(scriptInterface: BridgeScriptInterface, service: String) :
     PluginBase(scriptInterface, service) {

@@ -1,6 +1,6 @@
-package nbridgekit.plugin
+package com.ntoworks.nbridgekit.plugin
 
-import nbridgekit.plugin.base.PluginBase
+import com.ntoworks.nbridgekit.plugin.base.PluginBase
 
 
 open class PluginManager {

@@ -1,4 +1,4 @@
-package nbridgekit.view.common
+package com.ntoworks.nbridgekit.view.common
 
 import android.app.Dialog
 import android.content.Context

@@ -1,8 +1,8 @@
-package nbridgekit.plugin.base
+package com.ntoworks.nbridgekit.plugin.base
 
 import android.app.Activity
 import android.content.Context
-import nbridgekit.view.common.BridgeScriptInterface
+import com.ntoworks.nbridgekit.view.common.BridgeScriptInterface
 import org.json.JSONArray
 import org.json.JSONObject
 

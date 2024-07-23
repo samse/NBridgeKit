@@ -1,11 +1,11 @@
-package nbridgekit.view.common
+package com.ntoworks.nbridgekit.view.common
 
 import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.webkit.JavascriptInterface
-import nbridgekit.plugin.base.PluginBase
-import nbridgekit.plugin.PluginManager
+import com.ntoworks.nbridgekit.plugin.base.PluginBase
+import com.ntoworks.nbridgekit.plugin.PluginManager
 import org.json.JSONException
 import org.json.JSONObject
 

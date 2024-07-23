@@ -22,7 +22,6 @@ import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ntoworks.nbridgekit.R
-import nbridgekit.view.common.DialogHandler
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat

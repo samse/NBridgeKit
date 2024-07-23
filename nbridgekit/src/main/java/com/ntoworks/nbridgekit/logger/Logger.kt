@@ -1,4 +1,4 @@
-package nbridgekit.logger
+package com.ntoworks.nbridgekit.logger
 
 import android.annotation.SuppressLint
 import com.ntoworks.nbridgekit.BuildConfig
