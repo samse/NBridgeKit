@@ -13,7 +13,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import kotlin.system.exitProcess
 
-class AppPlugin (
+open class AppPlugin (
     scriptInterface: BridgeScriptInterface,
     service: String
 ) :
