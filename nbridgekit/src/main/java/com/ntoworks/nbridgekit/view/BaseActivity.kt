@@ -1,9 +1,11 @@
 package com.ntoworks.nbridgekit.view
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +43,7 @@ open class BaseActivity : AppCompatActivity() {
         backPressedHandler = DefaultBackPressedHandler(this)
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     fun initRefreshLayout() {
         if (webWindow.fullToRefreshFlag) {
             val refreshLayout = findViewById<SwipeRefreshLayout>(R.id.main_refresh_layout)
@@ -48,11 +51,19 @@ open class BaseActivity : AppCompatActivity() {
                 refreshLayout.setOnRefreshListener {
                     webWindow.refresh()
                 }
-                registerReceiver(object : BroadcastReceiver() {
-                    override fun onReceive(p0: Context?, p1: Intent?) {
-                        refreshLayout.isRefreshing = false
-                    }
-                }, IntentFilter(REFRESH_LAYER_BROADCAST))
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    registerReceiver(object : BroadcastReceiver() {
+                        override fun onReceive(p0: Context?, p1: Intent?) {
+                            refreshLayout.isRefreshing = false
+                        }
+                    }, IntentFilter(REFRESH_LAYER_BROADCAST), RECEIVER_NOT_EXPORTED)
+                } else {
+                    registerReceiver(object : BroadcastReceiver() {
+                        override fun onReceive(p0: Context?, p1: Intent?) {
+                            refreshLayout.isRefreshing = false
+                        }
+                    }, IntentFilter(REFRESH_LAYER_BROADCAST))
+                }
             }
         }
     }
