@@ -131,7 +131,7 @@ class BridgeWebWindow(
 
     fun refresh() {
         webView.reload()
-        fullToRefreshFlag = true
+//        fullToRefreshFlag = true
     }
 
 }
@@ -147,7 +147,7 @@ open class BridgeWebViewClient(val context: Context, var fullToRefreshFlag: Bool
         Logger.debug("onPageFinished : $url")
 
         if(fullToRefreshFlag) {
-            fullToRefreshFlag = false
+//            fullToRefreshFlag = false
             context.sendBroadcast(Intent(BaseActivity.REFRESH_LAYER_BROADCAST))
         }
     }
