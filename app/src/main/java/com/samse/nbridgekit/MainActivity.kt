@@ -34,8 +34,8 @@ class MainActivity : BridgeBaseActivity() {
 
     override fun initWebView() {
         super.initWebView()
+        webWindow.fullToRefreshFlag = true
         getWebView().webViewClient = MyWebViewClient(context = this,
-            fullToRefreshFlag = webWindow.fullToRefreshFlag,
             url = webWindow.url, webWindow = webWindow)
     }
 }
@@ -51,7 +51,7 @@ class MyWebChromeClient(val activity: AppCompatActivity, dialogHandler: DialogHa
 
 }
 
-class MyWebViewClient(context: Context, fullToRefreshFlag: Boolean, url: String?, val webWindow: BridgeWebWindow)
+class MyWebViewClient(context: Context, url: String?, val webWindow: BridgeWebWindow)
     : BridgeWebViewClient(context, url) {
     override fun onPageStarted(view: WebView?, url: String, favicon: Bitmap?) {
         super.onPageStarted(view, url, favicon)

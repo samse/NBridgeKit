@@ -53,7 +53,7 @@ open class BaseActivity : AppCompatActivity() {
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     registerReceiver(object : BroadcastReceiver() {
-                        override fun onReceive(p0: Context?, p1: Intent?) {
+                        override fun onReceive(context: Context?, intent: Intent?) {
                             refreshLayout.isRefreshing = false
                         }
                     }, IntentFilter(REFRESH_LAYER_BROADCAST), RECEIVER_NOT_EXPORTED)

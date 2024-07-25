@@ -144,7 +144,9 @@ open class BridgeWebViewClient(val context: Context, val url: String?) : WebView
     override fun onPageFinished(view: WebView, url: String) {
         super.onPageFinished(view, url)
         Logger.debug("onPageFinished : $url")
-        context.sendBroadcast(Intent(BaseActivity.REFRESH_LAYER_BROADCAST))
+        val intent = Intent(BaseActivity.REFRESH_LAYER_BROADCAST)
+            .setPackage(context.packageName)
+        context.sendBroadcast(intent)
     }
 
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
