@@ -123,7 +123,7 @@ class BridgeWebWindow(
             }
             addJavascriptInterface(bridgeScriptInterface, NBRIDGE_KEY)
             webChromeClient = BridgeWebChromeClient(context as Activity, dialogHandler)
-            webViewClient = BridgeWebViewClient(context, fullToRefreshFlag, url)
+            webViewClient = BridgeWebViewClient(context, url)
         }
     }
 
@@ -131,12 +131,11 @@ class BridgeWebWindow(
 
     fun refresh() {
         webView.reload()
-//        fullToRefreshFlag = true
     }
 
 }
 
-open class BridgeWebViewClient(val context: Context, var fullToRefreshFlag: Boolean, val url: String?) : WebViewClient() {
+open class BridgeWebViewClient(val context: Context, val url: String?) : WebViewClient() {
 
     override fun onPageStarted(view: WebView?, url: String, favicon: Bitmap?) {
         Logger.debug("onPageStarted : $url")
@@ -145,11 +144,7 @@ open class BridgeWebViewClient(val context: Context, var fullToRefreshFlag: Bool
     override fun onPageFinished(view: WebView, url: String) {
         super.onPageFinished(view, url)
         Logger.debug("onPageFinished : $url")
-
-        if(fullToRefreshFlag) {
-//            fullToRefreshFlag = false
-            context.sendBroadcast(Intent(BaseActivity.REFRESH_LAYER_BROADCAST))
-        }
+        context.sendBroadcast(Intent(BaseActivity.REFRESH_LAYER_BROADCAST))
     }
 
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {

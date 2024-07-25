@@ -51,9 +51,8 @@ class MyWebChromeClient(val activity: AppCompatActivity, dialogHandler: DialogHa
 
 }
 
-class MyWebViewClient(context: Context, fullToRefreshFlag: Boolean, url: String?, val webWindow: BridgeWebWindow) : BridgeWebViewClient(context,
-    fullToRefreshFlag, url
-) {
+class MyWebViewClient(context: Context, fullToRefreshFlag: Boolean, url: String?, val webWindow: BridgeWebWindow)
+    : BridgeWebViewClient(context, url) {
     override fun onPageStarted(view: WebView?, url: String, favicon: Bitmap?) {
         super.onPageStarted(view, url, favicon)
         webWindow.showLoading()
