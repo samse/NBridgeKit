@@ -22,11 +22,13 @@ open class AppPlugin (
         const val ACTION_APP_INFO = "appInfo"
         const val ACTION_EXIT = "exit"
         const val ACTION_GO_SETTINGS = "goSettings"
+        const val ACTION_OPEN_BROWSER = "openBrowser"
 
         const val SETTING_NORMAL = "normal"
         const val SETTING_PUSH = "push"
         const val SETTING_LOCATION = "location"
     }
+
     override fun execute(promiseId: String, command: JSONObject) {
         when (command.getString(BridgeScriptInterface.ACTION)) {
             // app 정보 전달
@@ -40,6 +42,10 @@ open class AppPlugin (
             // 설정 화면 이동
             ACTION_GO_SETTINGS -> {
                 goSettings(promiseId, command)
+            }
+            // 외부 브라우저 실행
+            ACTION_OPEN_BROWSER -> {
+                openBrowser(promiseId, command)
             }
         }
     }
@@ -82,6 +88,7 @@ open class AppPlugin (
                         context.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
                         sendSuccessResult(promiseId)
                     }
+
                     SETTING_PUSH -> {
                         val intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             Intent().also { intent ->
@@ -100,14 +107,32 @@ open class AppPlugin (
 
                         context.startActivity(intent)
                         sendSuccessResult(promiseId)
-                    } else -> {
-                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                    val uri = Uri.fromParts("package", activity.packageName, null)
-                    intent.data = uri
-                    activity.startActivity(intent)
-                    sendSuccessResult(promiseId)
+                    }
+
+                    else -> {
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        val uri = Uri.fromParts("package", activity.packageName, null)
+                        intent.data = uri
+                        activity.startActivity(intent)
+                        sendSuccessResult(promiseId)
+                    }
                 }
-                }
+            }
+        } catch (e: JSONException) {
+            invalidParamError(promiseId)
+        }
+    }
+
+    /**
+     * 외부 브라우저 실행
+     */
+    private fun openBrowser(promiseId: String, command: JSONObject) {
+        try {
+            val obj: JSONObject = command.getJSONObject("option")
+            obj.let {
+                val url = it.optString("url", SETTING_NORMAL)
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                activity.startActivity(intent)
             }
         } catch (e: JSONException) {
             invalidParamError(promiseId)
