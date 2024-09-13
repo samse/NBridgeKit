@@ -1,6 +1,7 @@
 package com.ntoworks.nbridgekit.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -10,6 +11,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ntoworks.nbridgekit.R
@@ -22,15 +26,19 @@ import com.ntoworks.nbridgekit.view.common.DefaultBackPressedHandler
 import com.ntoworks.nbridgekit.view.common.BridgeReadyListener
 import kotlin.system.exitProcess
 
+interface ActivityResultListener {
+    fun onResult(result: ActivityResult)
+}
 open class BaseActivity : AppCompatActivity() {
 
     companion object {
         const val REFRESH_LAYER_BROADCAST = "refreshLayoutBroadcast"
     }
-
     var pluginManager: PluginManager = PluginManager()
     lateinit var webWindow: BridgeWebWindow
     var backPressedHandler: BackPressedHandler? = null
+    protected var launcher: ActivityResultLauncher<Intent>? = null
+    var resultListener: ActivityResultListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +46,10 @@ open class BaseActivity : AppCompatActivity() {
         showSplash()
         initWebView()
         initRefreshLayout()
+
+        launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            resultListener?.onResult(result)
+        }
 
         PreferenceUtil.getInstance().init(this)
         backPressedHandler = DefaultBackPressedHandler(this)
@@ -89,6 +101,11 @@ open class BaseActivity : AppCompatActivity() {
             )
         }
 
+    }
+
+    fun launchActivity(intent: Intent, listener: ActivityResultListener) {
+        launcher?.launch(intent)
+        resultListener = listener
     }
 
     fun getWebView(): WebView {
@@ -146,4 +163,6 @@ open class BaseActivity : AppCompatActivity() {
         this.finishAffinity()
         exitProcess(0)
     }
+
+
 }

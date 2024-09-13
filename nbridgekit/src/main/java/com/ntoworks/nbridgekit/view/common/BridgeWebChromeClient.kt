@@ -19,9 +19,14 @@ import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.FrameLayout
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ntoworks.nbridgekit.R
+import com.ntoworks.nbridgekit.view.ActivityResultListener
+import com.ntoworks.nbridgekit.view.BaseActivity
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -103,17 +108,15 @@ open class BridgeWebChromeClient(val context: Activity, val dialogHandler: Dialo
         imageChooser()
     }
 
+    var fileValueCallback: ValueCallback<Array<Uri>?>? = null
+
     // For Android Version 5.0+
     // Ref: https://github.com/GoogleChrome/chromium-webview-samples/blob/master/input-file-example/app/src/main/java/inputfilesample/android/chrome/google/com/inputfilesample/MainFragment.java
     override fun onShowFileChooser(
         webView: WebView?,
         filePathCallback: ValueCallback<Array<Uri>?>, fileChooserParams: FileChooserParams?
     ): Boolean {
-//        println("WebViewActivity A>5, OS Version : " + Build.VERSION.SDK_INT + "\t onSFC(WV,VCUB,FCP), n=3")
-//        if (mFilePathCallback != null) {
-//            mFilePathCallback.onReceiveValue(null)
-//        }
-//        mFilePathCallback = filePathCallback
+        fileValueCallback = filePathCallback
         imageChooser()
         return true
     }
@@ -179,17 +182,33 @@ open class BridgeWebChromeClient(val context: Activity, val dialogHandler: Dialo
         }
         val contentSelectionIntent = Intent(Intent.ACTION_GET_CONTENT)
         contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE)
-        contentSelectionIntent.type =
-            TYPE_IMAGE
+        contentSelectionIntent.type = TYPE_IMAGE
         val intentArray: Array<Intent?> = takePictureIntent?.let { arrayOf(it) } ?: arrayOfNulls(0)
         val chooserIntent = Intent(Intent.ACTION_CHOOSER)
         chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent)
         chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser")
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray)
-        context.startActivityForResult(
-            chooserIntent,
-            INPUT_FILE_REQUEST_CODE
-        )
+
+        (context as? BaseActivity)?.launchActivity(chooserIntent, object : ActivityResultListener{
+            override fun onResult(result: ActivityResult) {
+                if (result.resultCode == Activity.RESULT_OK) {
+                    result.data?.let {
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            fileValueCallback?.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(result.resultCode, it))
+// kitkat이하의 경우
+//                         } else {
+//                            var uri = arrayOf<Uri>(it.data as Uri)
+//                            fileValueCallback?.onReceiveValue(uri)
+                        }
+                        fileValueCallback = null
+                    }
+                }
+            }
+        })
+//        context.startActivityForResult(
+//            chooserIntent,
+//            INPUT_FILE_REQUEST_CODE
+//        )
     }
 
     /**
