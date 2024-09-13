@@ -162,8 +162,8 @@ open class BridgeWebChromeClient(val context: Activity, val dialogHandler: Dialo
             // Create the File where the photo should go
             var photoFile: File? = null
             try {
-                photoFile = createImageFile()
-                takePictureIntent.putExtra("PhotoPath", mCameraPhotoPath)
+                photoFile = createImageFile(context)
+//                takePictureIntent.putExtra("PhotoPath", mCameraPhotoPath)
             } catch (ex: IOException) {
                 // Error occurred while creating the File
                 Log.e(javaClass.name, "Unable to create Image File", ex)
@@ -219,17 +219,17 @@ open class BridgeWebChromeClient(val context: Activity, val dialogHandler: Dialo
      * @throws IOException
      */
     @Throws(IOException::class)
-    open fun createImageFile(): File? {
+    open fun createImageFile(context: Context): File? {
         // Create an image file name
-        val timeStamp =
-            SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val imageFileName = "JPEG_" + timeStamp + "_"
-        val storageDir = Environment.getExternalStoragePublicDirectory(
-            Environment.DIRECTORY_PICTURES
-        )
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val imageFileName = "img_" + timeStamp + "_"
+        val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+//        val storageDir = Environment.getExternalStoragePublicDirectory(
+//            Environment.DIRECTORY_PICTURES
+//        )
         return File.createTempFile(
             imageFileName,  /* prefix */
-            ".jpg",  /* suffix */
+            ".png",  /* suffix */
             storageDir /* directory */
         )
     }
