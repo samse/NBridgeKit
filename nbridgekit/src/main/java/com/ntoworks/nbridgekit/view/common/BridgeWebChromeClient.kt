@@ -157,58 +157,26 @@ open class BridgeWebChromeClient(val context: Activity, val dialogHandler: Dialo
     }
 
     open fun imageChooser() {
-        var takePictureIntent: Intent? = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (takePictureIntent!!.resolveActivity(context.packageManager) != null) {
-            // Create the File where the photo should go
-            var photoFile: File? = null
-            try {
-                photoFile = createImageFile(context)
-//                takePictureIntent.putExtra("PhotoPath", mCameraPhotoPath)
-            } catch (ex: IOException) {
-                // Error occurred while creating the File
-                Log.e(javaClass.name, "Unable to create Image File", ex)
-            }
-
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                mCameraPhotoPath = "file:" + photoFile.absolutePath
-                takePictureIntent.putExtra(
-                    MediaStore.EXTRA_OUTPUT,
-                    Uri.fromFile(photoFile)
-                )
-            } else {
-                takePictureIntent = null
-            }
-        }
         val contentSelectionIntent = Intent(Intent.ACTION_GET_CONTENT)
         contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE)
         contentSelectionIntent.type = TYPE_IMAGE
-        val intentArray: Array<Intent?> = takePictureIntent?.let { arrayOf(it) } ?: arrayOfNulls(0)
+
         val chooserIntent = Intent(Intent.ACTION_CHOOSER)
         chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent)
         chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser")
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray)
 
         (context as? BaseActivity)?.launchActivity(chooserIntent, object : ActivityResultListener{
             override fun onResult(result: ActivityResult) {
                 if (result.resultCode == Activity.RESULT_OK) {
                     result.data?.let {
-                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            fileValueCallback?.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(result.resultCode, it))
-// kitkat이하의 경우
-//                         } else {
-//                            var uri = arrayOf<Uri>(it.data as Uri)
-//                            fileValueCallback?.onReceiveValue(uri)
-                        }
+                        fileValueCallback?.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(result.resultCode, it))
                         fileValueCallback = null
+                        return
                     }
                 }
+                fileValueCallback?.onReceiveValue(null)
             }
         })
-//        context.startActivityForResult(
-//            chooserIntent,
-//            INPUT_FILE_REQUEST_CODE
-//        )
     }
 
     /**
