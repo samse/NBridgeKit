@@ -24,6 +24,7 @@ class AesUtil {
             }
         private const val AES = "AES"
         private const val AES_ECB_PKCS5 = "AES/ECB/PKCS5Padding"
+        private const val AES_GCM_NOPADDING = "AES/GCM/NoPadding"
     }
 
     /**
@@ -104,7 +105,7 @@ class AesUtil {
     fun encrypt(data: String, secretKey: ByteArray): String {
         val textBytes: ByteArray = data.toByteArray()
         val secKeySpec = SecretKeySpec(secretKey, AES)
-        val cipher = Cipher.getInstance(AES_ECB_PKCS5)
+        val cipher = Cipher.getInstance(AES_GCM_NOPADDING)
         cipher.init(Cipher.ENCRYPT_MODE, secKeySpec)
         return Base64.encodeToString(cipher.doFinal(textBytes), Base64.DEFAULT)
     }
@@ -131,7 +132,7 @@ class AesUtil {
     fun decrypt(encData: String?, secretKey: ByteArray): String {
         val textBytes = Base64.decode(encData, Base64.DEFAULT)
         val secKeySpec = SecretKeySpec(secretKey, AES)
-        val cipher = Cipher.getInstance(AES_ECB_PKCS5)
+        val cipher = Cipher.getInstance(AES_GCM_NOPADDING)
         cipher.init(Cipher.DECRYPT_MODE, secKeySpec)
         return String(cipher.doFinal(textBytes), StandardCharsets.UTF_8)
     }
