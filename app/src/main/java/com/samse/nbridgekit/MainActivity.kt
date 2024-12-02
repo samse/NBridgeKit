@@ -27,7 +27,8 @@ class MainActivity : BridgeBaseActivity() {
 //        webWindow.loadUrl("https://dbins23.ichc.co.kr")
         webWindow.webView.setWebChromeClient(MyWebChromeClient(this, webWindow.dialogHandler))
 //        webWindow.loadUrl("https://www.ntoworks.com/app/ga/downloads.html")
-        webWindow.loadUrl("https://www.ntoworks.com/app/nbridge/v2/sample.html")
+//        webWindow.loadUrl("https://www.ntoworks.com/app/nbridge/v2/sample.html")
+        webWindow.loadUrl("file:///android_asset/www/sample.html")
         Handler(Looper.getMainLooper()).postDelayed({hideSplash()}, 300);
         WebView.setWebContentsDebuggingEnabled(true)
     }

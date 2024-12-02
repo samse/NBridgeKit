@@ -1,0 +1,157 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
+  <title>WKBridge Demo</title>
+  <style type="text/css">
+    * {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+    }
+    body {
+      background: repeat #38383d;
+      font-family: Helvetica, arial, sans-serif;
+    }
+    .congrats {
+      color: white;
+      font-size: 20pt;
+      padding: 6px;
+      text-align: left;
+      color: white;
+    }
+    .desc1 {
+      font-size: 11pt;
+      padding: 6px;
+      text-align: center;
+      color: white;
+    }
+    .desc {
+      font-size: 10pt;
+      padding: 6px;
+      text-align: left;
+      color: white;
+    }
+    .step {
+      font-size: 12pt;
+      background: white;
+      border: 1px #ccc solid;
+      border-radius: 14px;
+      padding: 4px 10px;
+      margin: 10px 0;
+    }
+    .instructions {
+      font-size: 12pt;
+    }
+    .icon_image {
+      border: 1px #ccc solid;
+      border-radius: 10px;
+      margin: 0 10px;
+    }
+    .button-shortcut {
+      font-size: 10pt;
+    	border: 1px #000 solid;
+      border-radius: 5px;
+    	height: 30px;
+    	width: 100px;
+    	background-color: white;
+    }
+    table {
+      width: 100%;
+    }
+  </style>
+  <script src="nbridge.js"></script>
+  <script src="locationBridge.js"></script>
+  <script src="preferenceBridge.js"></script>
+  <script src="appBridge.js"></script>
+  <script src="sample.js"></script>
+
+</head>
+<body>
+
+
+<div class="congrats">
+    <table>
+        <tr>
+            <td style="width: 80px">
+                <img src="https://www.ntoworks.com/img/logo.svg" onclick="location.href='https://www.ntoworks.com'"/>
+            </td>
+            <td class="congrats">
+                nBridge Sample page
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="desc1"></div>
+<div class="step">
+  <table>
+      <!--  App  -->
+      <tr> <td class="instructions"><b>App<b><br/></td>
+      </tr>
+      <tr> <td><font size="2px" color="#666666">nbridge.app.appInfo()</font></td>
+          <td width="100">
+              <button class="button-shortcut" onclick="appAppInfo()">appInfo</button>
+          </td>
+      </tr>
+      <tr> <td><font size="2px" color="#666666">nbridge.app.deviceInfo()</font></td>
+          <td width="100">
+              <button class="button-shortcut" onclick="appInfoDeviceInfo()">deviceInfo</button>
+          </td>
+      </tr>
+      <tr> <td><font size="2px" color="#666666">nbridge.app.clearCache()</font></td>
+          <td width="100">
+              <button class="button-shortcut" onclick="appClearCache()">clear cache</button>
+          </td>
+      </tr>
+      <tr> <td><font size="2px" color="#666666">nbridge.app.exit()</font></td>
+          <td width="100">
+              <button class="button-shortcut" onclick="appInfoExit()">exit</button>
+          </td>
+      </tr>
+
+      <!--  Preference  -->
+      <tr> <td class="instructions"><b>Preference<b><br/></td>
+      </tr>
+      <tr> <td><font size="2px" color="#666666">nbridge.preference.get('key1')</font></td>
+          <td width="100">
+              <button class="button-shortcut" onclick="preferenceGet()">get</button>
+          </td>
+      </tr>
+      <tr> <td><font size="2px" color="#666666">nbridge.preference.set('key1', 'defaultValue1')</font></td>
+          <td width="100">
+              <button class="button-shortcut" onclick="preferenceSet()">set</button>
+          </td>
+      </tr>
+      <tr> <td><font size="2px" color="#666666">nbridge.preference.remove('key1')</font></td>
+          <td width="100">
+              <button class="button-shortcut" onclick="preferenceRemove()">remove</button>
+          </td>
+      </tr>
+      <!--  Geolocation  -->
+      <!--  <tr> <td class="instructions"><b>GeoLocation</b><p id="loc" style="font-size:10pt;"></> </td>
+      </tr>
+      <tr>
+          <td><font size="2px" color="#666666">nbridge.location.available()</font></td>
+          <td width="100">
+              <button class="button-shortcut" onclick="locationAvailable()">available</button>
+          </td>
+      </tr>
+      <tr> <td><font size="2px" color="#666666">nbridge.location.current()</font></td>
+          <td width="100">
+              <button class="button-shortcut" onclick="locationCurrent()">current</button>
+          </td>
+      </tr>
+      <tr> <td><font size="2px" color="#666666">nbridge.location.watch(watchCb)</font></td>
+          <td width="100">
+              <button class="button-shortcut" onclick="locationWatch()">watch</button>
+          </td>
+      </tr>
+      <tr> <td><font size="2px" color="#666666">nbridge.location.clearWatch()</font></td>
+          <td width="100">
+              <button class="button-shortcut" onclick="locationClearWatch()">clear</button>
+          </td>
+      </tr> -->
+  </table>
+</div>
+
+</body>
+</html>
